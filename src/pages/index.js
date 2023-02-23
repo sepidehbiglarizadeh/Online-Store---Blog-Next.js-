@@ -76,17 +76,30 @@ export default function Home() {
               </div>
             </div>
             {/* blogs section */}
-            <div className="bg-blue-100 md:col-span-9 grid grid-cols-6 gap-8">
-              {[1, 2, 3, 4, 5, 6].map((index) => {
+            <div className="md:col-span-9 grid grid-cols-6 gap-8">
+              {[
+                "node.png",
+                "next.jpeg",
+                "vue.png",
+                "nuxt.png",
+                "node.png",
+                "next.jpeg",
+              ].map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="col-span-6 md:col-span-3 lg:col-span-2 bg-white rounded-3xl p-2"
+                    className="col-span-6 md:col-span-3 lg:col-span-2 bg-red-100 rounded-3xl p-2"
                   >
-                   {/* cover image */}
-                    <div></div>
-                   {/* blog content */}
-                   <div className="bg-gray-50 rounded-2xl">content</div>
+                    {/* cover image */}
+                    <div className="aspect-w-16 aspect-h-9">
+                      <img
+                        src={`/images/${item}`}
+                        alt=""
+                        className="rounded-2xl w-full h-full object-center object-cover"
+                      />
+                    </div>
+                    {/* blog content */}
+                    <div className="bg-gray-50 rounded-2xl">content</div>
                   </div>
                 );
               })}
