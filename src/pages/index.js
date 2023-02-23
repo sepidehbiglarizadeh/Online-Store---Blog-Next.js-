@@ -17,56 +17,64 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <div className="grid gap-4 md:grid-cols-12 md:grid-rows-[60px_minmax(300px,_1fr)] bg-gray-100 min-h-screen">
-          <div className="hidden md:block md:row-span-2 md:col-span-3">
-            <div className="bg-white rounded-3xl overflow-hidden">
-              {/* accordian header */}
-              <div
-                className="flex items-center justify-between py-4 px-4 cursor-pointer bg-purple-200"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                <span>دسته بندی مقالات</span>
-                <ChevronDownIcon
-                  className={`w-6 h-6 stroke-purple-400 transition-all duration-200 ${
-                    isOpen ? "rotate-180" : "rotate-0"
-                  }`}
-                />
-              </div>
-              {/* accordian content */}
-              <div className={` ${isOpen ? "block" : "hidden"}`}>
-                <Link
-                  href="#"
-                  className="block py-2 hover:bg-purple-50 pr-4 mb-1"
+      <main className="bg-gray-50">
+        <div className="container mx-auto lg:max-w-screen-xl">
+          <div className="grid gap-4 md:grid-cols-12 md:grid-rows-[60px_minmax(300px,_1fr)]  min-h-screen">
+            <div className="hidden md:block md:row-span-2 md:col-span-3">
+              <div className="bg-white rounded-3xl overflow-hidden">
+                {/* accordian header */}
+                <div
+                  className="flex items-center justify-between py-4 px-4 cursor-pointer bg-purple-200"
+                  onClick={() => setIsOpen(!isOpen)}
                 >
-                  همه مقالات
-                </Link>
-                <Link
-                  href="#"
-                  className="block py-2 hover:bg-purple-50 pr-4 mb-1"
-                >
-                  ریکت
-                </Link>
-                <Link href="#" className="block py-2 hover:bg-purple-50 pr-4">
-                  جاوااسکریپ
-                </Link>
+                  <span>دسته بندی مقالات</span>
+                  <ChevronDownIcon
+                    className={`w-6 h-6 stroke-purple-400 transition-all duration-200 ${
+                      isOpen ? "rotate-180" : "rotate-0"
+                    }`}
+                  />
+                </div>
+                {/* accordian content */}
+                <div className={` ${isOpen ? "block" : "hidden"}`}>
+                  <Link
+                    href="#"
+                    className="block py-2 hover:bg-purple-50 pr-4 mb-1"
+                  >
+                    همه مقالات
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block py-2 hover:bg-purple-50 pr-4 mb-1"
+                  >
+                    ریکت
+                  </Link>
+                  <Link href="#" className="block py-2 hover:bg-purple-50 pr-4">
+                    جاوااسکریپ
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="hidden md:block md:col-span-9">
-            <div className="bg-white rounded-3xl px-4 flex items-center">
-              <div className="flex gap-x-2 items-center ml-4">
-                <AdjustmentsVerticalIcon className="w-6 h-6" />
-                <span className="text-gray-700">مرتب سازی :</span>
+            <div className="hidden md:block md:col-span-9">
+              <div className="bg-white rounded-3xl px-4 flex items-center">
+                <div className="flex gap-x-2 items-center ml-4">
+                  <AdjustmentsVerticalIcon className="w-6 h-6" />
+                  <span className="text-gray-700">مرتب سازی :</span>
+                </div>
+                <ul className="flex items-center gap-x-4">
+                  <li className="py-4 cursor-pointer text-gray-700">
+                    پر بازدیدترین
+                  </li>
+                  <li className="py-4 cursor-pointer text-gray-700">
+                    محبوب ترین
+                  </li>
+                  <li className="py-4 cursor-pointer text-gray-700">
+                    جدیدترین
+                  </li>
+                </ul>
               </div>
-              <ul className="flex items-center gap-x-4">
-                <li className="py-4 cursor-pointer text-gray-700">پر بازدیدترین</li>
-                <li className="py-4 cursor-pointer text-gray-700">محبوب ترین</li>
-                <li className="py-4 cursor-pointer text-gray-700">جدیدترین</li>
-              </ul>
             </div>
+            <div className="bg-blue-200 md:col-span-9">blogs</div>
           </div>
-          <div className="bg-blue-200 md:col-span-9">blogs</div>
         </div>
       </main>
     </>
