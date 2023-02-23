@@ -1,8 +1,11 @@
 import Head from "next/head";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <Head>
@@ -12,24 +15,30 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="grid gap-4 md:grid-cols-12 md:grid-rows-2 bg-gray-100">
+        <div className="grid gap-4 md:grid-cols-12 md:grid-rows-2 bg-gray-100 min-h-screen">
           <div className="hidden md:block md:row-span-2 md:col-span-3">
-            {/* category */}
-            <div className="bg-white rounded-3xl">
+            <div className="bg-white rounded-3xl overflow-hidden">
               {/* accordian header */}
-              <div className="flex items-center justify-between">
+              <div
+                className="flex items-center justify-between py-4 px-4 cursor-pointer bg-purple-200"
+                onClick={() => setIsOpen(!isOpen)}
+              >
                 <span>دسته بندی مقالات</span>
-                <ChevronDownIcon className="w-6 h-6 stroke-orange-400" />
+                <ChevronDownIcon
+                  className={`w-6 h-6 stroke-purple-400 transition-all duration-200 ${
+                    isOpen ? "rotate-180" : "rotate-0"
+                  }`}
+                />
               </div>
               {/* accordian content */}
-              <div className="">
-                <Link href="#" className="block py-2 mb-1">
+              <div className={` ${isOpen ? "block" : "hidden"}`}>
+                <Link href="#" className="block py-2 hover:bg-purple-50 pr-4 mb-1">
                   همه مقالات
                 </Link>
-                <Link href="#" className="block py-2 mb-1">
+                <Link href="#" className="block py-2 hover:bg-purple-50 pr-4 mb-1">
                   ریکت
                 </Link>
-                <Link href="#" className="block py-2">
+                <Link href="#" className="block py-2 hover:bg-purple-50 pr-4">
                   جاوااسکریپ
                 </Link>
               </div>
