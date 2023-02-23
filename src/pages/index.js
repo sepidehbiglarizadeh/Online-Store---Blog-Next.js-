@@ -19,7 +19,8 @@ export default function Home() {
       </Head>
       <main className="bg-gray-50">
         <div className="container mx-auto lg:max-w-screen-xl">
-          <div className="grid gap-4 md:grid-cols-12 md:grid-rows-[60px_minmax(300px,_1fr)]  min-h-screen">
+          <div className="grid gap-8 md:grid-cols-12 md:grid-rows-[60px_minmax(300px,_1fr)]  min-h-screen">
+            {/* category desktop */}
             <div className="hidden md:block md:row-span-2 md:col-span-3">
               <div className="bg-white rounded-3xl overflow-hidden">
                 {/* accordian header */}
@@ -54,6 +55,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            {/* sortbar desktop */}
             <div className="hidden md:block md:col-span-9">
               <div className="bg-white rounded-3xl px-4 flex items-center">
                 <div className="flex gap-x-2 items-center ml-4">
@@ -73,7 +75,22 @@ export default function Home() {
                 </ul>
               </div>
             </div>
-            <div className="bg-blue-200 md:col-span-9">blogs</div>
+            {/* blogs section */}
+            <div className="bg-blue-100 md:col-span-9 grid grid-cols-6 gap-8">
+              {[1, 2, 3, 4, 5, 6].map((index) => {
+                return (
+                  <div
+                    key={index}
+                    className="col-span-6 md:col-span-3 lg:col-span-2 bg-white rounded-3xl p-2"
+                  >
+                   {/* cover image */}
+                    <div></div>
+                   {/* blog content */}
+                   <div className="bg-gray-50 rounded-2xl">content</div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </main>
