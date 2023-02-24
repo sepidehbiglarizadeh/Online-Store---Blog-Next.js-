@@ -88,7 +88,7 @@ export default function Home() {
                 return (
                   <div
                     key={index}
-                    className="col-span-6 md:col-span-3 lg:col-span-2 bg-red-100 rounded-3xl p-2"
+                    className="col-span-6 md:col-span-3 lg:col-span-2 rounded-3xl p-2"
                   >
                     {/* cover image */}
                     <div className="aspect-w-16 aspect-h-9">
@@ -99,7 +99,24 @@ export default function Home() {
                       />
                     </div>
                     {/* blog content */}
-                    <div className="bg-gray-50 rounded-2xl">content</div>
+                    <div className="bg-gray-50 rounded-2xl">
+                      <h2 className="mb-4 font-bold">
+                        بررسی کامل ریکت و ریداکس
+                      </h2>
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center">
+                          <img
+                            src="/images/next.jpeg"
+                            alt=""
+                            className="w-6 h-6 rounded-full ring-2 ring-white ml-2"
+                          />
+                          <span className="text-sm">سپیده بیگلری زاده</span>
+                        </div>
+                        <span className="text-xs px-2 py-1 rounded-xl bg-blue-100 text-blue-600 hover:text-blue-100 hover:bg-blue-600 transition-all duration-300 cursor-pointer">
+                          ری اکت
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
