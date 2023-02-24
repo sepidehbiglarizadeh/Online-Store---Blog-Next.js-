@@ -17,15 +17,19 @@ const PostList = ({ blogsData }) => {
       >
         {/* cover image */}
         <div className="aspect-w-16 aspect-h-9 mb-4">
-          <img
-            src={item.coverImage}
-            alt=""
-            className="rounded-2xl w-full h-full object-center object-cover"
-          />
+          <Link href={`/posts/${item.hashId}/${item.slug}`}>
+            <img
+              src={item.coverImage}
+              alt=""
+              className="rounded-2xl w-full h-full object-center object-cover"
+            />
+          </Link>
         </div>
         {/* blog content */}
         <div className="bg-gray-50 p-2 rounded-2xl h-60 flex flex-col w-full justify-between flex-1">
-          <h2 className="mb-4 font-bold">{item.title}</h2>
+          <Link href={`/posts/${item.hashId}/${item.slug}`}>
+            <h2 className="mb-4 font-bold">{item.title}</h2>
+          </Link>
           {/* blog data */}
           <div>
             {/* blog author-category */}
