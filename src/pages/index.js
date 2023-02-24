@@ -1,16 +1,14 @@
 import Head from "next/head";
 import {
   AdjustmentsVerticalIcon,
-  BookmarkIcon,
-  ChatBubbleLeftEllipsisIcon,
   ChevronDownIcon,
-  ClockIcon,
-  HeartIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useState } from "react";
+import axios from "axios";
+import PostList from "@/components/posts/PostList";
 
-export default function Home() {
+export default function Home({ blogsData }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -29,12 +27,12 @@ export default function Home() {
               <div className="bg-white rounded-3xl overflow-hidden">
                 {/* accordian header */}
                 <div
-                  className="flex items-center justify-between py-4 px-4 cursor-pointer bg-purple-200"
+                  className="flex items-center justify-between py-4 px-4 cursor-pointer bg-indigo-200"
                   onClick={() => setIsOpen(!isOpen)}
                 >
                   <span>دسته بندی مقالات</span>
                   <ChevronDownIcon
-                    className={`w-6 h-6 stroke-purple-400 transition-all duration-200 ${
+                    className={`w-6 h-6 stroke-indigo-400 transition-all duration-200 ${
                       isOpen ? "rotate-180" : "rotate-0"
                     }`}
                   />
@@ -43,17 +41,17 @@ export default function Home() {
                 <div className={` ${isOpen ? "block" : "hidden"}`}>
                   <Link
                     href="#"
-                    className="block py-2 hover:bg-purple-50 pr-4 mb-1"
+                    className="block py-2 hover:bg-indigo-50 pr-4 mb-1"
                   >
                     همه مقالات
                   </Link>
                   <Link
                     href="#"
-                    className="block py-2 hover:bg-purple-50 pr-4 mb-1"
+                    className="block py-2 hover:bg-indigo-50 pr-4 mb-1"
                   >
                     ریکت
                   </Link>
-                  <Link href="#" className="block py-2 hover:bg-purple-50 pr-4">
+                  <Link href="#" className="block py-2 hover:bg-indigo-50 pr-4">
                     جاوااسکریپ
                   </Link>
                 </div>
@@ -81,83 +79,23 @@ export default function Home() {
             </div>
             {/* blogs section */}
             <div className="md:col-span-9 grid grid-cols-6 gap-8">
-              {[
-                "node.png",
-                "next.jpeg",
-                "vue.png",
-                "nuxt.png",
-                "node.png",
-                "next.jpeg",
-              ].map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="col-span-6 md:col-span-3 lg:col-span-2 rounded-3xl p-2 bg-white flex flex-col"
-                  >
-                    {/* cover image */}
-                    <div className="aspect-w-16 aspect-h-9 mb-4">
-                      <img
-                        src={`/images/${item}`}
-                        alt=""
-                        className="rounded-2xl w-full h-full object-center object-cover"
-                      />
-                    </div>
-                    {/* blog content */}
-                    <div className="bg-gray-50 p-2 rounded-2xl h-60 flex flex-col w-full justify-between flex-1">
-                      <h2 className="mb-4 font-bold">
-                        {index !== 2
-                          ? "بررسی کامل ریکت و ریداکس"
-                          : "یک عنوان تستی که باید بیش تر از دو خط باشد....."}
-                      </h2>
-                      {/* blog data */}
-                      <div>
-                        {/* blog author-category */}
-                        <div className="flex justify-between items-center mb-4">
-                          <div className="flex items-center">
-                            <img
-                              src="/images/next.jpeg"
-                              alt=""
-                              className="w-6 h-6 rounded-full ring-2 ring-white ml-2"
-                            />
-                            <span className="text-sm text-gray-600">
-                              سپیده بیگلری زاده
-                            </span>
-                          </div>
-                          <span className="text-xs px-2 py-1 rounded-xl bg-blue-100 text-blue-600 hover:text-blue-100 hover:bg-blue-600 transition-all duration-300 cursor-pointer">
-                            ری اکت
-                          </span>
-                        </div>
-                        {/* blog interaction */}
-                        <div className="flex justify-between items-center">
-                          <div className="flex items-center gap-x-2">
-                            <div className="flex items-center gap-x-1 bg-indigo-50 rounded-sm">
-                              <ChatBubbleLeftEllipsisIcon className="w-4 h-4 stroke-indigo-600" />
-                              <span className="text-xs text-indigo-600">10</span>
-                            </div>
-                            <div className="flex items-center gap-x-1 bg-rose-50 rounded-sm">
-                              <HeartIcon className="w-4 h-4 stroke-rose-600" />
-                              <span className="text-xs text-rose-600">5</span>
-                            </div>
-                            <div className="bg-blue-50 rounded-sm">
-                              <BookmarkIcon className="w-4 h-4 stroke-blue-600" />
-                            </div>
-                          </div>
-                          <div className="flex items-center">
-                            <ClockIcon className="w-4 h-4 stroke-gray-400 ml-1" />
-                            <span className="text-xs text-gray-400">
-                              زمان مطالعه : 12 دقیقه
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+              <PostList blogsData={blogsData} />
             </div>
           </div>
         </div>
       </main>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { data: result } = await axios.get(
+    "http://localhost:5000/api/posts?limit=6&page=1"
+  );
+  const { data } = result;
+  return {
+    props: {
+      blogsData: data,
+    },
+  };
 }
