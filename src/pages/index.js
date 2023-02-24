@@ -8,7 +8,7 @@ import { useState } from "react";
 import axios from "axios";
 import PostList from "@/components/posts/PostList";
 
-export default function Home({ blogsData }) {
+export default function Home({ blogsData, postCategories }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -40,20 +40,22 @@ export default function Home({ blogsData }) {
                 {/* accordian content */}
                 <div className={` ${isOpen ? "block" : "hidden"}`}>
                   <Link
-                    href="#"
+                    href="/blogs"
                     className="block py-2 hover:bg-indigo-50 pr-4 mb-1"
                   >
                     همه مقالات
                   </Link>
-                  <Link
-                    href="#"
-                    className="block py-2 hover:bg-indigo-50 pr-4 mb-1"
-                  >
-                    ریکت
-                  </Link>
-                  <Link href="#" className="block py-2 hover:bg-indigo-50 pr-4">
-                    جاوااسکریپ
-                  </Link>
+                  {postCategories.map((category) => {
+                    return (
+                      <Link
+                        href={`/blogs/${category.englishTitle}`}
+                        key={category._id}
+                        className="block py-2 hover:bg-indigo-50 pr-4"
+                      >
+                        {category.title}
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -92,10 +94,14 @@ export async function getServerSideProps(context) {
   const { data: result } = await axios.get(
     "http://localhost:5000/api/posts?limit=6&page=1"
   );
+  const { data: postCategories } = await axios.get(
+    "http://localhost:5000/api/post-category"
+  );
   const { data } = result;
   return {
     props: {
       blogsData: data,
+      postCategories: postCategories.data,
     },
   };
 }
