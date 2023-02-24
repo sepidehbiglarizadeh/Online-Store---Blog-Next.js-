@@ -6,13 +6,14 @@ import {
   ClockIcon,
   HeartIcon,
 } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 const PostList = ({ blogsData }) => {
   return blogsData.docs.map((item, index) => {
     return (
       <div
         key={index}
-        className="col-span-6 md:col-span-3 lg:col-span-2 rounded-3xl p-2 bg-white flex flex-col"
+        className="col-span-6 md:col-span-3 lg:col-span-2 rounded-3xl p-2 bg-white flex flex-col max-h-[330px]"
       >
         {/* cover image */}
         <div className="aspect-w-16 aspect-h-9 mb-4">
@@ -39,9 +40,11 @@ const PostList = ({ blogsData }) => {
                   {item.author.name}
                 </span>
               </div>
-              <span className="text-xs px-2 py-1 rounded-xl bg-blue-100 text-blue-600 hover:text-blue-100 hover:bg-blue-600 transition-all duration-300 cursor-pointer">
-                {item.category.title}
-              </span>
+              <Link href={`/blogs/${item.category.englishTitle}`}>
+                <span className="text-xs px-2 py-1 rounded-xl bg-blue-100 text-blue-600 hover:text-blue-100 hover:bg-blue-600 transition-all duration-300 cursor-pointer">
+                  {item.category.title}
+                </span>
+              </Link>
             </div>
             {/* blog interaction */}
             <div className="flex justify-between items-center">

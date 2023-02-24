@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const DesktopCategory = ({ postCategories }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div className="bg-white rounded-3xl overflow-hidden">
