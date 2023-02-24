@@ -1,12 +1,19 @@
-const PostPage = () => {
-  return ( 
-    <div>post page</div>
-   );
-}
- 
+import axios from "axios";
+
+const PostPage = ({ post }) => {
+  return <div>{post.text}</div>;
+};
+
 export default PostPage;
 
 export async function getServerSideProps(context) {
-  const {query}= context;
-  console.log(context);
+  const { query } = context;
+  const {
+    data: { data },
+  } = await axios.get(`http://localhost:5000/api/posts/${query.postSlug}`);
+  return {
+    props: {
+      post: data,
+    },
+  };
 }
