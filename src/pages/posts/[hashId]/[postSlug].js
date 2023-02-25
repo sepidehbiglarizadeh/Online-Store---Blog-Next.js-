@@ -4,6 +4,8 @@ import { BookOpenIcon } from "@heroicons/react/24/solid";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import Link from "next/link";
 import PostInteraction from "@/components/posts/PostInteraction";
+import { IoLogoLinkedin, IoLogoTwitter } from "react-icons/io";
+import { FaTelegram } from "react-icons/fa";
 
 const PostPage = ({ post }) => {
   return (
@@ -99,7 +101,7 @@ const PostPage = ({ post }) => {
 
         {/* post tags like-bookmark */}
         <section>
-          <ul className="flex items-center flex-wrap gap-x-4">
+          <ul className="flex items-center flex-wrap gap-x-4 mb-6">
             {["فرانت اند", "جاوااسکریپت", "ریکت", "Next.js"].map(
               (tag, index) => {
                 return (
@@ -114,8 +116,20 @@ const PostPage = ({ post }) => {
             )}
           </ul>
           {/* like-comment-bookmark */}
-          <div>
-            <PostInteraction item={post} />
+          <div className="flex items-center flex-col gap-y-8 md:flex-row md:justify-between">
+            <PostInteraction item={post} className="justify-evenly w-full md:w-auto" />
+            {/* share btns */}
+            <div className="flex items-center md:gap-x-4 gap-x-3 w-full md:w-auto text-2xl justify-evenly">
+              <a href="" target="_blank" className="block" rel="noreferrer">
+                <IoLogoLinkedin className="fill-gray-400 hover:fill-gray-500 transition-all duration-300 cursor-pointer" />
+              </a>
+              <a href="" target="_blank" className="block" rel="noreferrer">
+                <IoLogoTwitter className="fill-gray-400 hover:fill-gray-500 transition-all duration-300 cursor-pointer" />
+              </a>
+              <a href="" target="_blank" className="block" rel="noreferrer">
+                <FaTelegram className="fill-gray-400 hover:fill-gray-500 transition-all duration-300 cursor-pointer" />
+              </a>
+            </div>
           </div>
         </section>
       </div>
