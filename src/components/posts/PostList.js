@@ -5,11 +5,11 @@ import Link from "next/link";
 import PostInteraction from "./PostInteraction";
 
 const PostList = ({ blogsData }) => {
-  return blogsData.docs.map((item, index) => {
+  return blogsData.map((item, index) => {
     return (
       <div
         key={index}
-        className="col-span-6 md:col-span-3 lg:col-span-2 rounded-3xl p-2 bg-white flex flex-col max-h-[330px]"
+        className="col-span-6 md:col-span-3 lg:col-span-2 rounded-3xl p-2 bg-white flex flex-col max-h-[350px]"
       >
         {/* cover image */}
         <div className="aspect-w-16 aspect-h-9 mb-4">

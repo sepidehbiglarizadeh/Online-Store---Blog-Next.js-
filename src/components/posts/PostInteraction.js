@@ -29,7 +29,7 @@ const PostInteraction = ({ item, isSmall,className }) => {
         <span className="text-xs">{toPersianDigits(item.likesCount)}</span>
       </button>
       <button className="bg-blue-100 rounded text-blue-500 hover:bg-blue-500 hover:text-white">
-        {postMessage.isBookmarked ? (
+        {item.isBookmarked ? (
           <SolidBookmarkIcon className={`${iconSize} fill-current`} />
         ) : (
           <BookmarkIcon className={`${iconSize} stroke-current`} />

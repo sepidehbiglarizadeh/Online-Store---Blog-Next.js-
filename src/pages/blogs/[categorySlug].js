@@ -18,7 +18,7 @@ export default function CategoryPage({ blogsData, postCategories }) {
             <SortBar />
           </div>
           <div className="md:col-span-9 grid grid-cols-6 gap-8">
-            <PostList blogsData={blogsData} />
+            <PostList blogsData={blogsData.docs} />
           </div>
         </div>
       </div>
