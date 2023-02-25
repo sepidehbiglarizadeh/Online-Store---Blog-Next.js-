@@ -3,6 +3,7 @@ import { BookmarkIcon, LinkIcon } from "@heroicons/react/24/outline";
 import { BookOpenIcon } from "@heroicons/react/24/solid";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import Link from "next/link";
+import PostInteraction from "@/components/posts/PostInteraction";
 
 const PostPage = ({ post }) => {
   return (
@@ -58,7 +59,7 @@ const PostPage = ({ post }) => {
             </button>
           </div>
         </header>
-        <main className="prose prose-xl prose-slate prose-h1:text-xl md:prose-h1:text-3xl prose-h1:font-bold prose-h2:text-xl md:prose-h2:text-2xl prose-h2:font-bold prose-p:text-base prose-p:leading-8 md:prose-p:text-lg md:prose-p:leading-10 prose-img:rounded-xl prose-a:text-blue-500">
+        <main className="prose prose-xl prose-slate prose-h1:text-xl md:prose-h1:text-3xl prose-h1:font-bold prose-h2:text-xl md:prose-h2:text-2xl prose-h2:font-bold prose-p:text-base prose-p:leading-8 md:prose-p:text-lg md:prose-p:leading-10 prose-img:rounded-xl prose-a:text-blue-500 mb-8">
           <h1>{post.title}</h1>
           <h2>عنوان اول تستی</h2>
           <p>
@@ -95,6 +96,28 @@ const PostPage = ({ post }) => {
             }`}
           </pre>
         </main>
+
+        {/* post tags like-bookmark */}
+        <section>
+          <ul className="flex items-center flex-wrap gap-x-4">
+            {["فرانت اند", "جاوااسکریپت", "ریکت", "Next.js"].map(
+              (tag, index) => {
+                return (
+                  <li
+                    key={index}
+                    className="px-3 py-1 rounded-2xl bg-gray-200 hover:bg-gray-100 transition-all cursor-pointer text-gray-600 text-sm mb-3 block"
+                  >
+                    {tag}
+                  </li>
+                );
+              }
+            )}
+          </ul>
+          {/* like-comment-bookmark */}
+          <div>
+            <PostInteraction item={post} />
+          </div>
+        </section>
       </div>
     </div>
   );

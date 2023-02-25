@@ -1,12 +1,8 @@
 import {
-  AdjustmentsVerticalIcon,
-  BookmarkIcon,
-  ChatBubbleLeftEllipsisIcon,
-  ChevronDownIcon,
   ClockIcon,
-  HeartIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import PostInteraction from "./PostInteraction";
 
 const PostList = ({ blogsData }) => {
   return blogsData.docs.map((item, index) => {
@@ -52,23 +48,7 @@ const PostList = ({ blogsData }) => {
             </div>
             {/* blog interaction */}
             <div className="flex justify-between items-center">
-              <div className="flex items-center gap-x-2">
-                <div className="flex items-center gap-x-1 bg-indigo-50 rounded-sm">
-                  <ChatBubbleLeftEllipsisIcon className="w-4 h-4 stroke-indigo-600" />
-                  <span className="text-xs text-indigo-600">
-                    {item.commentsCount}
-                  </span>
-                </div>
-                <div className="flex items-center gap-x-1 bg-rose-50 rounded-sm">
-                  <HeartIcon className="w-4 h-4 stroke-rose-600" />
-                  <span className="text-xs text-rose-600">
-                    {item.likesCount}
-                  </span>
-                </div>
-                <div className="bg-blue-50 rounded-sm">
-                  <BookmarkIcon className="w-4 h-4 stroke-blue-600" />
-                </div>
-              </div>
+              <PostInteraction item={item} isSmall />
               <div className="flex items-center">
                 <ClockIcon className="w-4 h-4 stroke-gray-400 ml-1" />
                 <span className="text-xs text-gray-400">
