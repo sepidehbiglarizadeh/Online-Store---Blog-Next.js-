@@ -6,8 +6,20 @@ import Link from "next/link";
 import PostInteraction from "@/components/posts/PostInteraction";
 import { IoLogoLinkedin, IoLogoTwitter } from "react-icons/io";
 import { FaTelegram } from "react-icons/fa";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useState } from "react";
+import { MdContentCopy } from "react-icons/md";
 
 const PostPage = ({ post }) => {
+  const [copied, setCopied] = useState(false);
+
+  const copyHandler = () => {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+  };
+
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="md:max-w-screen-md container mx-auto">
@@ -122,31 +134,49 @@ const PostPage = ({ post }) => {
               className="justify-evenly w-full md:w-auto"
             />
             {/* share btns */}
-            <div className="flex items-center md:gap-x-4 gap-x-3 w-full md:w-auto text-2xl justify-evenly">
-              <a
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=${process.env.NEXT_PUBLIC_DOMAIN_URL}/posts/${post.hashId}/${post.slug}`}
-                target="_blank"
-                className="block"
-                rel="noreferrer"
-              >
-                <IoLogoLinkedin className="fill-gray-400 hover:fill-gray-500 transition-all duration-300 cursor-pointer" />
-              </a>
-              <a
-                href={`https://twitter.com/intent/tweet?text=${post.title}&url=${process.env.NEXT_PUBLIC_DOMAIN_URL}/posts/${post.hashId}/${post.slug}`}
-                target="_blank"
-                className="block"
-                rel="noreferrer"
-              >
-                <IoLogoTwitter className="fill-gray-400 hover:fill-gray-500 transition-all duration-300 cursor-pointer" />
-              </a>
-              <a
-                href={`https://telegram.me/share/url?url=${process.env.NEXT_PUBLIC_DOMAIN_URL}/posts/${post.hashId}/${post.slug}&text=${post.title}`}
-                target="_blank"
-                className="block"
-                rel="noreferrer"
-              >
-                <FaTelegram className="fill-gray-400 hover:fill-gray-500 transition-all duration-300 cursor-pointer" />
-              </a>
+            <div className="flex items-center gap-x-6 justify-between w-full md:w-auto">
+              <div className="flex items-center md:gap-x-4 gap-x-6 w-full md:w-auto text-2xl">
+                <a
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${process.env.NEXT_PUBLIC_DOMAIN_URL}/posts/${post.hashId}/${post.slug}`}
+                  target="_blank"
+                  className="block"
+                  rel="noreferrer"
+                >
+                  <IoLogoLinkedin className="fill-gray-400 hover:fill-gray-500 transition-all duration-300 cursor-pointer" />
+                </a>
+                <a
+                  href={`https://twitter.com/intent/tweet?text=${post.title}&url=${process.env.NEXT_PUBLIC_DOMAIN_URL}/posts/${post.hashId}/${post.slug}`}
+                  target="_blank"
+                  className="block"
+                  rel="noreferrer"
+                >
+                  <IoLogoTwitter className="fill-gray-400 hover:fill-gray-500 transition-all duration-300 cursor-pointer" />
+                </a>
+                <a
+                  href={`https://telegram.me/share/url?url=${process.env.NEXT_PUBLIC_DOMAIN_URL}/posts/${post.hashId}/${post.slug}&text=${post.title}`}
+                  target="_blank"
+                  className="block"
+                  rel="noreferrer"
+                >
+                  <FaTelegram className="fill-gray-400 hover:fill-gray-500 transition-all duration-300 cursor-pointer" />
+                </a>
+              </div>
+              <div className="relative">
+                <CopyToClipboard
+                  text={`${process.env.NEXT_PUBLIC_DOMAIN_URL}/posts/${post.hashId}/${post.slug}`}
+                  onCopy={copyHandler}
+                >
+                  <div className="bg-gray-100 border px-3 py-1 rounded-2xl text-gray-600 flex items-center gap-x-2 cursor-pointer text-sm md:text-base">
+                    <span>کپی&nbsp;لینک</span>
+                    <MdContentCopy size={24} />
+                  </div>
+                </CopyToClipboard>
+                {copied && (
+                  <spa className="absolute -top-6 left-0 bg-blue-500 px-3 py-1 rounded-2xl text-white text-sm">
+                    کپی شد
+                  </spa>
+                )}
+              </div>
             </div>
           </div>
         </section>
