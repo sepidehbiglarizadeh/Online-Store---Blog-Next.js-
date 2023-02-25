@@ -117,16 +117,34 @@ const PostPage = ({ post }) => {
           </ul>
           {/* like-comment-bookmark */}
           <div className="flex items-center flex-col gap-y-8 md:flex-row md:justify-between">
-            <PostInteraction item={post} className="justify-evenly w-full md:w-auto" />
+            <PostInteraction
+              item={post}
+              className="justify-evenly w-full md:w-auto"
+            />
             {/* share btns */}
             <div className="flex items-center md:gap-x-4 gap-x-3 w-full md:w-auto text-2xl justify-evenly">
-              <a href="" target="_blank" className="block" rel="noreferrer">
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${process.env.NEXT_PUBLIC_DOMAIN_URL}/posts/${post.hashId}/${post.slug}`}
+                target="_blank"
+                className="block"
+                rel="noreferrer"
+              >
                 <IoLogoLinkedin className="fill-gray-400 hover:fill-gray-500 transition-all duration-300 cursor-pointer" />
               </a>
-              <a href="" target="_blank" className="block" rel="noreferrer">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${post.title}&url=${process.env.NEXT_PUBLIC_DOMAIN_URL}/posts/${post.hashId}/${post.slug}`}
+                target="_blank"
+                className="block"
+                rel="noreferrer"
+              >
                 <IoLogoTwitter className="fill-gray-400 hover:fill-gray-500 transition-all duration-300 cursor-pointer" />
               </a>
-              <a href="" target="_blank" className="block" rel="noreferrer">
+              <a
+                href={`https://telegram.me/share/url?url=${process.env.NEXT_PUBLIC_DOMAIN_URL}/posts/${post.hashId}/${post.slug}&text=${post.title}`}
+                target="_blank"
+                className="block"
+                rel="noreferrer"
+              >
                 <FaTelegram className="fill-gray-400 hover:fill-gray-500 transition-all duration-300 cursor-pointer" />
               </a>
             </div>
