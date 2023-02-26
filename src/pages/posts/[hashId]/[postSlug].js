@@ -10,6 +10,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useState } from "react";
 import { MdContentCopy } from "react-icons/md";
 import PostList from "@/components/posts/PostList";
+import PostComments from "@/components/posts/postComments";
 
 const PostPage = ({ post }) => {
   const [copied, setCopied] = useState(false);
@@ -187,6 +188,8 @@ const PostPage = ({ post }) => {
             <PostList blogsData={post.related} />
           </div>
         </section>
+        {/* post comments */}
+        <PostComments post={post} />
       </div>
     </div>
   );
