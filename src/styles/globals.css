@@ -20,3 +20,9 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+button:disabled{
+  background-color: #ddd;
+  color: #444;
+  cursor: not-allowed;
+}
