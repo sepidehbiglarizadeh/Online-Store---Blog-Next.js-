@@ -2,12 +2,18 @@ import { useAuth, useAuthActions } from "@/context/AuthContext";
 import Link from "next/link";
 
 const Header = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const dispatch = useAuthActions();
 
   return (
-    <header className="bg-white shadow-md py-2 mb-8 px-4 md:px-0">
-      <div className="container mx-auto xl:max-w-screen-xl">
+    <header
+      className={`bg-white shadow-md py-2 mb-8 px-4 md:px-0 transition-all `}
+    >
+      <div
+        className={`container mx-auto xl:max-w-screen-xl ${
+          loading ? "opacity-0" : "opacity-100"
+        }`}
+      >
         <nav className="flex justify-between">
           <ul className="flex items-center gap-x-5">
             <li>
