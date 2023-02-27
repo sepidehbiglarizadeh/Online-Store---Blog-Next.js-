@@ -1,11 +1,10 @@
 import InputComponent from "@/components/FormInput";
-import axios from "axios";
 import { useFormik } from "formik";
 import Head from "next/head";
 import Link from "next/link";
 import * as Yup from "yup";
-import toast from "react-hot-toast";
 import { useRouter } from "next/router";
+import { useAuthActions } from "@/context/AuthContext";
 
 const initialValues = {
   email: "",
@@ -21,17 +20,10 @@ const validationSchema = Yup.object({
 
 const SigninForm = () => {
   const router = useRouter();
+  const dispatch = useAuthActions();
 
   const onSubmit = (values) => {
-    axios
-      .post("http://localhost:5000/api/user/signin", values, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        toast.success("با موفقیت وارد شدید");
-        router.push("/");
-      })
-      .catch((err) => toast.error(err?.response?.data?.message, {}));
+    dispatch({ type: "signin", payload: values });
   };
 
   const formik = useFormik({
