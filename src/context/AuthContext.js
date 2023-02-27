@@ -8,27 +8,53 @@ const AuthContextDispatcher = createContext();
 
 const initialState = {
   user: null,
-  loading: true,
+  loading: false,
   error: null,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "signin": {
+    case "SIGNIN_PENDING": {
+      return { user: null, loading: true, error: false };
+    }
+    case "SIGNIN_SUCCESS": {
+      return { loading: false, user: action.payload, error: null };
+    }
+    case "SIGNIN_REJECT": {
+      return { error: action.error, loading: false, user: null };
+    }
+    default:
+      return { ...state };
+  }
+};
+
+const asyncActionHandlers = {
+  SIGNIN:
+    ({ dispatch }) =>
+    (action) => {
+      //? loading
+      dispatch({ type: "SIGNIN_PENDING" });
       axios
         .post("http://localhost:5000/api/user/signin", action.payload, {
           withCredentials: true,
         })
         .then((res) => {
           toast.success("با موفقیت وارد شدید");
+          // * success
+          dispatch({ type: "SIGNIN_SUCCESS", payload: res.data });
         })
-        .catch((err) => toast.error(err?.response?.data?.message, {}));
-    }
-    default:
-      return { ...state };
-  }
+        .catch((err) => {
+          // ! reject
+          dispatch({
+            type: "SIGNIN_REJECT",
+            error: err?.response?.data?.message,
+          });
+          toast.error(err?.response?.data?.message, {});
+        });
+    },
+  SIGNUP: {},
+  SIGNOUT: {},
 };
-const asyncActionHandlers = {};
 
 const AuthProvider = ({ children }) => {
   const [user, dispatch] = useReducerAsync(

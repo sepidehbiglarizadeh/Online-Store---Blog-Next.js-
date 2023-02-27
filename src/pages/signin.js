@@ -23,7 +23,7 @@ const SigninForm = () => {
   const dispatch = useAuthActions();
 
   const onSubmit = (values) => {
-    dispatch({ type: "signin", payload: values });
+    dispatch({ type: "SIGNIN", payload: values });
   };
 
   const formik = useFormik({
