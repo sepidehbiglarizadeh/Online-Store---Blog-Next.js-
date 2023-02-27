@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, useContext } from "react";
 import toast from "react-hot-toast";
 import { useReducerAsync } from "use-reducer-async";
+import Router from "next/router";
 
 const AuthContext = createContext();
 const AuthContextDispatcher = createContext();
@@ -42,6 +43,7 @@ const asyncActionHandlers = {
           toast.success("با موفقیت وارد شدید");
           // * success
           dispatch({ type: "SIGNIN_SUCCESS", payload: res.data });
+          Router.push("/");
         })
         .catch((err) => {
           // ! reject
@@ -52,7 +54,30 @@ const asyncActionHandlers = {
           toast.error(err?.response?.data?.message, {});
         });
     },
-  SIGNUP: {},
+  SIGNUP:
+    ({ dispatch }) =>
+    (action) => {
+      //? loading
+      dispatch({ type: "SIGNIN_PENDING" });
+      axios
+        .post("http://localhost:5000/api/user/signup", action.payload, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          toast.success("ثبت نام با موفقیت انجام شد");
+          // * success
+          dispatch({ type: "SIGNIN_SUCCESS", payload: res.data });
+          Router.push("/");
+        })
+        .catch((err) => {
+          // ! reject
+          dispatch({
+            type: "SIGNIN_REJECT",
+            error: err?.response?.data?.message,
+          });
+          toast.error(err?.response?.data?.message, {});
+        });
+    },
   SIGNOUT: {},
 };
 

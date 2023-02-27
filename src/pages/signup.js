@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
+import { useAuth, useAuthActions } from "@/context/AuthContext";
+import { useEffect } from "react";
 
 const initialValues = {
   name: "",
@@ -34,18 +36,15 @@ const validationSchema = Yup.object({
 
 const RegisterForm = () => {
   const router = useRouter();
+  const dispatch = useAuthActions();
+  const { user } = useAuth();
 
   const onSubmit = (values) => {
     const { name, email, phoneNumber, password } = values;
-    axios
-      .post("http://localhost:5000/api/user/signup", {name, email, phoneNumber, password}, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        toast.success("ثبت نام با موفقیت انجام شد");
-        router.push("/");
-      })
-      .catch((err) => toast.error(err?.response?.data?.message, {}));
+    dispatch({
+      type: "SIGNUP",
+      payload: { name, email, phoneNumber, password },
+    });
   };
 
   const formik = useFormik({
@@ -54,6 +53,10 @@ const RegisterForm = () => {
     validationSchema,
     validateOnMount: true,
   });
+
+  useEffect(() => {
+    if (user) router.push("/");
+  }, [user]);
 
   return (
     <>
