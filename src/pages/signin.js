@@ -1,8 +1,11 @@
 import InputComponent from "@/components/FormInput";
+import axios from "axios";
 import { useFormik } from "formik";
 import Head from "next/head";
 import Link from "next/link";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const initialValues = {
   email: "",
@@ -17,8 +20,18 @@ const validationSchema = Yup.object({
 });
 
 const SigninForm = () => {
+  const router = useRouter();
+
   const onSubmit = (values) => {
-    const { email, password } = values;
+    axios
+      .post("http://localhost:5000/api/user/signin", values, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        toast.success("با موفقیت وارد شدید");
+        router.push("/");
+      })
+      .catch((err) => toast.error(err?.response?.data?.message, {}));
   };
 
   const formik = useFormik({
@@ -40,7 +53,12 @@ const SigninForm = () => {
         >
           <h1 className="font-bold text-2xl text-violet-700 mb-4">ورود</h1>
           <InputComponent label="ایمیل" name="email" formik={formik} />
-          <InputComponent label="رمز عبور" name="password" type="password" formik={formik} />
+          <InputComponent
+            label="رمز عبور"
+            name="password"
+            type="password"
+            formik={formik}
+          />
           <button
             type="submit"
             disabled={!formik.isValid}
