@@ -8,7 +8,7 @@ const DesktopCategory = ({ postCategories }) => {
   const { query } = useRouter();
 
   return (
-    <div className="bg-white rounded-3xl overflow-hidden">
+    <div className="bg-white rounded-3xl overflow-hidden sticky top-24">
       {/* accordian header */}
       <div
         className="flex items-center justify-between py-4 px-4 cursor-pointer bg-indigo-200"
@@ -23,7 +23,14 @@ const DesktopCategory = ({ postCategories }) => {
       </div>
       {/* accordian content */}
       <div className={` ${isOpen ? "block" : "hidden"}`}>
-        <Link href="/blogs" className={`block py-2 hover:bg-indigo-50 pr-4 mb-1 ${!query.categorySlug ?"bg-indigo-700 text-white hover:bg-indigo-500":""}`}>
+        <Link
+          href="/blogs"
+          className={`block py-2 hover:bg-indigo-50 pr-4 mb-1 ${
+            !query.categorySlug
+              ? "bg-indigo-700 text-white hover:bg-indigo-500"
+              : ""
+          }`}
+        >
           همه مقالات
         </Link>
         {postCategories.map((category) => {
@@ -32,7 +39,9 @@ const DesktopCategory = ({ postCategories }) => {
               href={`/blogs/${category.englishTitle}`}
               key={category._id}
               className={`block py-2 hover:bg-indigo-50 pr-4 ${
-                query.categorySlug === category.englishTitle ? "bg-indigo-700 text-white hover:bg-indigo-500" : ""
+                query.categorySlug === category.englishTitle
+                  ? "bg-indigo-700 text-white hover:bg-indigo-500"
+                  : ""
               }`}
             >
               {category.title}
