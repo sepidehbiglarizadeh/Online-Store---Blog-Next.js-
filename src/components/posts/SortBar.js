@@ -31,13 +31,13 @@ const SortBar = () => {
             <li
               key={id}
               className={`py-4 cursor-pointer text-gray-700 relative ${
-                id === sort ? "text-purple-700 font-bold" : ""
+                id === sort ? "text-indigo-700 font-bold" : ""
               }`}
               onClick={() => sortHandler(id)}
             >
               {label}
               {id === sort && (
-                <span className="h-[3px] bg-purple-700 w-8 rounded absolute right-0 bottom-0"></span>
+                <span className="h-[3px] bg-indigo-700 w-8 rounded absolute right-0 bottom-0"></span>
               )}
             </li>
           );
