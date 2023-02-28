@@ -1,4 +1,5 @@
 import http from "@/services/httpService";
+import routerPush from "@/utils/routerPush";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import {
   BookmarkIcon,
@@ -10,6 +11,7 @@ import {
   BookmarkIcon as SolidBookmarkIcon,
 } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 const PostInteraction = ({ item, isSmall, className }) => {
   const iconSize = `${isSmall ? "h-4 w-4" : "h-6 w-6"}`;
@@ -19,18 +21,20 @@ const PostInteraction = ({ item, isSmall, className }) => {
     http
       .put(`/posts/like/${postId}`)
       .then((res) => {
-        router.push(router);
+        routerPush(router);
+        toast.success(res.data.message);
       })
-      .catch();
+      .catch((err) => toast.error(err?.response?.data?.message));
   };
 
   const bookmarkHandler = (postId) => {
     http
       .put(`/posts/bookmark/${postId}`)
       .then((res) => {
-        router.push(router);
+        routerPush(router);
+        toast.success(res.data.message);
       })
-      .catch();
+      .catch((err) => toast.error(err?.response?.data?.message));
   };
 
   return (
