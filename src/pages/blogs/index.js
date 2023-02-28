@@ -5,17 +5,11 @@ import SortBar from "@/components/posts/SortBar";
 import DesktopCategory from "@/components/posts/DesktopCategory";
 import http from "@/services/httpService";
 import queryString from "query-string";
-import Pagination from "@mui/material/Pagination";
-import { useRouter } from "next/router";
-import routerPush from "@/utils/routerPush";
+import PaginationComponent from "@/common/Pagination";
 
 export default function BlogPage({ blogsData, postCategories }) {
-  const router = useRouter();
 
-  const pageHandler = (e, page) => {
-    router.query.page = page;
-    routerPush(router);
-  };
+  
 
   return (
     <div className="container mx-auto lg:max-w-screen-xl px-4 md:px-0">
@@ -29,16 +23,7 @@ export default function BlogPage({ blogsData, postCategories }) {
         </div>
         <div className="md:col-span-9 grid grid-cols-6 gap-8">
           <PostList blogsData={blogsData.docs} />
-          <div className=" col-span-6 flex justify-center" dir="ltr">
-            {blogsData.page > 1 && (
-              <Pagination
-                count={blogsData.totalPages}
-                page={blogsData.page}
-                color="primary"
-                onChange={pageHandler}
-              />
-            )}
-          </div>
+          <PaginationComponent page={blogsData.page} totalPages={blogsData.totalPages} />
         </div>
       </div>
     </div>

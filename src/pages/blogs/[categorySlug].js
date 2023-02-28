@@ -5,6 +5,7 @@ import SortBar from "@/components/posts/SortBar";
 import DesktopCategory from "@/components/posts/DesktopCategory";
 import queryString from "query-string";
 import http from "@/services/httpService";
+import PaginationComponent from "@/common/Pagination";
 
 export default function CategoryPage({ blogsData, postCategories }) {
   return (
@@ -19,6 +20,10 @@ export default function CategoryPage({ blogsData, postCategories }) {
         </div>
         <div className="md:col-span-9 grid grid-cols-6 gap-8">
           <PostList blogsData={blogsData.docs} />
+          <PaginationComponent
+            page={blogsData.page}
+            totalPages={blogsData.totalPages}
+          />
         </div>
       </div>
     </div>
