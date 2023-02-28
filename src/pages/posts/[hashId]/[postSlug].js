@@ -113,7 +113,7 @@ const PostPage = ({ post }) => {
       </main>
 
       {/* post tags like-bookmark */}
-      <section>
+      <section className="mb-6 border-b-2 pb-4">
         <ul className="flex items-center flex-wrap gap-x-4 mb-6">
           {["فرانت اند", "جاوااسکریپت", "ریکت", "Next.js"].map((tag, index) => {
             return (
@@ -179,12 +179,14 @@ const PostPage = ({ post }) => {
           </div>
         </div>
       </section>
-      <section className="mb-20">
-        <h2 className="font-bold text-2xl md:text-3xl mb-8">پست های مشابه</h2>
-        <div className="grid grid-cols-6 gap-8">
-          <PostList blogsData={post.related} />
-        </div>
-      </section>
+      {post.related.length >=1 && (
+        <section className="mb-20">
+          <h2 className="font-bold text-2xl md:text-3xl mb-8">پست های مشابه</h2>
+          <div className="grid grid-cols-6 gap-8">
+            <PostList blogsData={post.related} />
+          </div>
+        </section>
+      )}
       {/* post comments */}
       <PostComments post={post} />
     </div>
@@ -194,7 +196,7 @@ const PostPage = ({ post }) => {
 export default PostPage;
 
 export async function getServerSideProps(context) {
-  const { query,req } = context;
+  const { query, req } = context;
   const {
     data: { data },
   } = await http.get(`/posts/${query.postSlug}`, {

@@ -6,7 +6,7 @@ import SingleComment from "./SingleComment";
 const PostComments = ({ post }) => {
   return (
     <div>
-      <h2>نظرات</h2>
+      <h2 className="text-2xl font-bold text-indigo-700 mb-6">نظرات</h2>
       {post.comments.map((comment, index) => {
         return (
           !comment.responseTo &&
