@@ -108,8 +108,7 @@ const asyncActionHandlers = {
           withCredentials: true,
         })
         .then((res) => {
-          dispatch({ type: "SIGNIN_PENDING" });
-          Router.push("/");
+          window.location.href = "/";
         })
         .catch();
     },
