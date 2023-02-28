@@ -12,6 +12,7 @@ import { MdContentCopy } from "react-icons/md";
 import PostList from "@/components/posts/PostList";
 import PostComments from "@/components/posts/postComments";
 import toLocalDate from "@/utils/toLocalDate";
+import http from "@/services/httpService";
 
 const PostPage = ({ post }) => {
   const [copied, setCopied] = useState(false);
@@ -196,8 +197,7 @@ export async function getServerSideProps(context) {
   const { query,req } = context;
   const {
     data: { data },
-  } = await axios.get(`http://localhost:5000/api/posts/${query.postSlug}`, {
-    withCredentials: true,
+  } = await http.get(`/posts/${query.postSlug}`, {
     headers: {
       Cookie: req.headers.cookie || "",
     },
