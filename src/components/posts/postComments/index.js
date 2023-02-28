@@ -1,26 +1,32 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import CommentForm from "./CommentForm";
 import ReplyComment from "./ReplyComment";
 import SingleComment from "./SingleComment";
 
 const PostComments = ({ post }) => {
-  const [commentValue, setCommentValue] = useState("");
-
   return (
     <div>
       <h2>نظرات</h2>
       {post.comments.map((comment, index) => {
-        return !comment.responseTo && comment.status === 2 && <Fragment key={comment._id}>
-          <SingleComment comment={comment} />
-          <ReplyComment comments={post.comments} parentCommentId={comment._id} />
-        </Fragment>
-        
+        return (
+          !comment.responseTo &&
+          comment.status === 2 && (
+            <Fragment key={comment._id}>
+              <SingleComment comment={comment} postId={post._id} />
+              <ReplyComment
+                comments={post.comments}
+                parentCommentId={comment._id}
+                postId={post._id}
+              />
+            </Fragment>
+          )
+        );
       })}
 
       {/* base comment form */}
       <div className="mt-8">
         <span className="font-bold md:text-lg">ارسال دیدگاه جدید</span>
-        <CommentForm comment={commentValue} setComment={setCommentValue} />
+        <CommentForm postId={post._id} responseTo={null} />
       </div>
     </div>
   );
