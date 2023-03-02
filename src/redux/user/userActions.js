@@ -106,3 +106,12 @@ export const signOut = () => (dispatch) => {
     })
     .catch();
 };
+
+export const loadUserData = (store) => {
+  http
+    .get("/user/load")
+    .then(({ data }) => {
+      store.dispatch(signinUserSuccess(data));
+    })
+    .catch((err) => {});
+};
