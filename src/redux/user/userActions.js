@@ -71,6 +71,7 @@ export const userSignup = (data) => {
       .post("/user/signup", data)
       .then((response) => {
         dispatch(signupUserSuccess(response.data));
+        dispatch(signinUserSuccess(response.data));
       })
       .catch((error) => {
         dispatch(signupUserFailure(error.message));

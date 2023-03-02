@@ -1,9 +1,11 @@
-import { useAuth, useAuthActions } from "@/context/AuthContext";
+// import { useAuthActions } from "@/context/AuthContext";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const Header = () => {
-  const { user, loading } = useAuth();
-  const dispatch = useAuthActions();
+  const userInfo = useSelector((state) => state.userSignin);
+  const { user ,loading} = userInfo;
+  // const dispatch = useAuthActions();
 
   return (
     <header

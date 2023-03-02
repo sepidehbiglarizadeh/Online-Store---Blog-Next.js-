@@ -5,9 +5,9 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as Yup from "yup";
-import toast from "react-hot-toast";
-import { useAuth, useAuthActions } from "@/context/AuthContext";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userSignup } from "@/redux/user/userActions";
 
 const initialValues = {
   name: "",
@@ -36,15 +36,13 @@ const validationSchema = Yup.object({
 
 const RegisterForm = () => {
   const router = useRouter();
-  const dispatch = useAuthActions();
-  const { user } = useAuth();
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userSignin);
+  const { user, loading } = userInfo;
 
   const onSubmit = (values) => {
     const { name, email, phoneNumber, password } = values;
-    dispatch({
-      type: "SIGNUP",
-      payload: { name, email, phoneNumber, password },
-    });
+    dispatch(userSignup({ name, email, phoneNumber, password }));
   };
 
   const formik = useFormik({
