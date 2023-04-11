@@ -1,15 +1,24 @@
 import Layout from "@/containers/Layout";
-import AuthProvider from "@/context/AuthContext";
+import { wrapper } from "@/redux/store";
+import { loadUserData } from "@/redux/user/userActions";
 import "@/styles/globals.css";
+import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
+import { useStore } from "react-redux";
 
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
+  const store = useStore();
+
+  useEffect(() => {
+    loadUserData(store);
+  }, []);
+
   return (
-    <AuthProvider>
-      <Layout>
-        <Component {...pageProps} />
-        <Toaster />
-      </Layout>
-    </AuthProvider>
+    <Layout>
+      <Component {...pageProps} />
+      <Toaster />
+    </Layout>
   );
 }
+
+export default wrapper.withRedux(App);

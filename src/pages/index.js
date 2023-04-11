@@ -1,8 +1,8 @@
-import { useAuth } from "@/context/AuthContext";
-import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
-  const { user } = useAuth();
+  const userInfo = useSelector((state) => state.userSignin);
+  const { user } = userInfo;
 
   return (
     <div className="container mx-auto lg:max-w-screen-xl">
